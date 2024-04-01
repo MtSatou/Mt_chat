@@ -24,6 +24,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: $bgColor;
   .mt-chat-content {
     width: 80%;
     height: 80%;

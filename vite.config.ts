@@ -14,7 +14,19 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": "./src/",
+      "@": "/src",
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 自动导入scss文件
+        additionalData: `
+          @import "@/assets/scss/vab.scss";
+        `,
+      }
+    },
+  
+  },
+  
 });
