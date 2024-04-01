@@ -15,7 +15,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 canvas.style.position = 'fixed'
 canvas.style.top = '0'
-canvas.style.zIndex = '-1'
+canvas.style.zIndex = '1'
 document.body.appendChild(canvas);
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 

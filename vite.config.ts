@@ -23,6 +23,7 @@ export default defineConfig({
         // 自动导入scss文件
         additionalData: `
           @import "@/assets/scss/vab.scss";
+          @import "@/assets/scss/index.scss";
         `,
       }
     },
