@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^4.1.2",
+    "dayjs": "^1.11.10",
     "pinia": "^2.1.7",
     "reset-css": "^5.0.2",
     "sass-loader": "^14.1.1",
