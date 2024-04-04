@@ -20,6 +20,7 @@ defineProps({
 
 <style scoped lang="scss">
 .message {
+  width: fit-content;
   max-width: 60%;
   height: fit-content;
   background-color: #ffffff;

@@ -344,6 +344,22 @@ const message = ref<messageListItem[]>([
       },
     ],
   },
+  {
+    id: "7",
+    avatar: "http://localhost:1000/9150e4e5gy1g64m9acxsbj206o06o74q.jpg",
+    userId: "user456",
+    nickname: "二哈",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "image",
+        url: "http://localhost:1000/F2DC3938AB01805A68F58486944C4D23.gif",
+        imageWidth: 100,
+        imageHeight: 100,
+      },
+    ],
+  },
 ]);
 
 interface operateItem {
