@@ -16,7 +16,7 @@ export interface messageListItem {
   userId: string;
   nickname: string;
   // 发送时间
-  createTime: string;
+  createTime: number;
   // 可触达（是否可以右键选中）
   attainability: boolean;
   // 消息体

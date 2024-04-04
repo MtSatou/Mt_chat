@@ -17,11 +17,16 @@
     <template v-else-if="type === 1">
       <div class="message-container">
         <div class="message-box">
-          <div class="message-list">
-            <a-avatar :size="32">
+          <div
+            class="message-list"
+            v-for="item in data"
+            :key="item.id"
+            :class="item.userId === 'user123' ? 'right' : 'left'"
+          >
+            <a-avatar :size="40" :src="item.avatar" class="message-avatar">
               <template #icon></template>
             </a-avatar>
-            <Message></Message>
+            <Message :data="item.messageContent"></Message>
           </div>
         </div>
         <MessageEdit></MessageEdit>
@@ -33,8 +38,8 @@
 <script setup lang="ts">
 import Message from "./message.vue";
 import MessageEdit from "./messageEdit.vue";
-import { UserOutlined } from "@ant-design/icons-vue";
 import FormatTime from "@/components/formatTime/index.vue";
+import type { messageListItem } from "@/types/message";
 defineProps({
   /**0 公告, 1 私聊, 2 群聊 */
   type: {
@@ -42,7 +47,7 @@ defineProps({
     default: 1,
   },
   data: {
-    type: Array as PropType<any>,
+    type: Array as PropType<messageListItem[]>,
     default: () => [],
   },
 });
@@ -52,7 +57,7 @@ defineProps({
 .mt-chat-message-container {
   height: 100%;
   & > div {
-    height: calc(100% - 35px);
+    height: calc(100% - 35px - 60px);
     overflow: auto;
     padding: 10px;
   }
@@ -87,6 +92,18 @@ defineProps({
       .message-list {
         display: flex;
         height: fit-content;
+        margin-bottom: 15px;
+        .message-avatar {
+          margin-right: 10px;
+        }
+        &.right {
+          justify-content: flex-end;
+          .message-avatar {
+            order: 1;
+            margin-right: 0;
+            margin-left: 10px;
+          }
+        }
       }
     }
   }

@@ -38,7 +38,7 @@
           >
             <template #renderItem="{ item }">
               <a-list-item class="list-item">
-                <a-skeleton avatar :title="false" :loading="false" active>
+                <a-skeleton avatar :title="false" :loading="true" active>
                   <a-list-item-meta>
                     <template #title>
                       <div class="flex flex-jsb">
@@ -65,7 +65,7 @@
         </a-col>
         <a-col :span="16" class="chat-message-content">
           <WindowOperation></WindowOperation>
-          <ChatMessage></ChatMessage>
+          <ChatMessage :data="message"></ChatMessage>
         </a-col>
       </a-row>
     </div>
@@ -253,6 +253,99 @@ const list = ref<messageListItem[]>([
 ]);
 const listInitLoading = ref(false);
 
+const message = ref<messageListItem[]>([
+  {
+    id: "1",
+    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+    userId: "user123",
+    nickname: "小宝",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "text",
+        text: "早安，亲爱的，今天你醒得怎么样？",
+      }
+    ],
+  },
+  {
+    id: "2",
+    avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+    userId: "user456",
+    nickname: "大宝",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "text",
+        text: "早安呀，宝贝儿，我今天醒来第一时间就在想你呢。",
+      }
+    ],
+  },
+  {
+    id: "3",
+    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+    userId: "user123",
+    nickname: "小宝",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "text",
+        text: "嘻嘻，我也是。今天想好怎么宠爱我了吗？",
+      }
+    ],
+  },
+  {
+    id: "4",
+    avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+    userId: "user456",
+    nickname: "大宝",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "text",
+        text: "当然了，今晚带你去吃你最爱的日式料理，然后一起去看星星，怎么样？",
+      }
+    ],
+  },
+  {
+    id: "5",
+    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+    userId: "user123",
+    nickname: "小宝",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "image",
+        url: "http://localhost:1000/[bb]c2d13ec457bdf0cd4f25121fdc9f7f30.gif",
+        imageWidth: 100,
+        imageHeight: 100,
+      },
+      {
+        messageType: "text",
+        text: "太好啦！期待晚上的约会~",
+      }
+    ],
+  },
+  {
+    id: "6",
+    avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+    userId: "user456",
+    nickname: "大宝",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "text",
+        text: "我也是，宝贝，爱你~",
+      }
+    ],
+  }
+]);
+
 interface operateItem {
   name: string;
   icon: any;
@@ -309,7 +402,7 @@ const operateClickHandler = (item: operateItem) => {
     z-index: 10;
     min-width: 55vw;
     min-height: 70vh;
-    // overflow: hidden;
+    overflow: hidden;
     background-color: #fff;
     border-radius: 8px;
     filter: drop-shadow(5px 5px 2px #00000030);
@@ -332,6 +425,7 @@ const operateClickHandler = (item: operateItem) => {
         .operate-list {
           margin-top: 20px;
           height: calc(100% - 125px);
+          
           .operate-list-item {
             margin-top: 5px;
             padding: 12px;
