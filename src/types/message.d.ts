@@ -1,7 +1,7 @@
 
 export interface messageContent {
   // 消息类型
-  messageType: "text" | "image" | "file" | "audio" | "video" | "revocation" | "system";
+  messageType: "text" | "image" | "file" | "audio" | "video" | "at" | "revocation" | "system";
   // 消息内容
   text?: string;
   imageWidth?: number;

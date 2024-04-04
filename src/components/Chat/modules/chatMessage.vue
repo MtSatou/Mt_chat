@@ -55,7 +55,7 @@ defineProps({
 
 <style scoped lang="scss">
 .mt-chat-message-container {
-  height: 100%;
+  height: calc(100% - 24px);
   & > div {
     height: calc(100% - 35px - 60px);
     overflow: auto;

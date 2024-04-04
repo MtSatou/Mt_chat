@@ -265,7 +265,7 @@ const message = ref<messageListItem[]>([
       {
         messageType: "text",
         text: "早安，亲爱的，今天你醒得怎么样？",
-      }
+      },
     ],
   },
   {
@@ -279,7 +279,7 @@ const message = ref<messageListItem[]>([
       {
         messageType: "text",
         text: "早安呀，宝贝儿，我今天醒来第一时间就在想你呢。",
-      }
+      },
     ],
   },
   {
@@ -293,7 +293,7 @@ const message = ref<messageListItem[]>([
       {
         messageType: "text",
         text: "嘻嘻，我也是。今天想好怎么宠爱我了吗？",
-      }
+      },
     ],
   },
   {
@@ -307,7 +307,7 @@ const message = ref<messageListItem[]>([
       {
         messageType: "text",
         text: "当然了，今晚带你去吃你最爱的日式料理，然后一起去看星星，怎么样？",
-      }
+      },
     ],
   },
   {
@@ -327,7 +327,7 @@ const message = ref<messageListItem[]>([
       {
         messageType: "text",
         text: "太好啦！期待晚上的约会~",
-      }
+      },
     ],
   },
   {
@@ -341,10 +341,27 @@ const message = ref<messageListItem[]>([
       {
         messageType: "text",
         text: "我也是，宝贝，爱你~",
-      }
+      },
     ],
-  }
+  },
 ]);
+
+setInterval(() => {
+  message.value.push({
+    id: "1",
+    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+    userId: "user123",
+    nickname: "小宝",
+    createTime: Date.now(),
+    attainability: true,
+    messageContent: [
+      {
+        messageType: "text",
+        text: "早安，亲爱的，今天你醒得怎么样？",
+      },
+    ],
+  });
+}, 1000);
 
 interface operateItem {
   name: string;
@@ -425,7 +442,7 @@ const operateClickHandler = (item: operateItem) => {
         .operate-list {
           margin-top: 20px;
           height: calc(100% - 125px);
-          
+
           .operate-list-item {
             margin-top: 5px;
             padding: 12px;
