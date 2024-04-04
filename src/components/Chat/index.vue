@@ -259,6 +259,7 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
     userId: "user123",
     nickname: "小宝",
+    tag: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -273,6 +274,7 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
     nickname: "大宝",
+    tag: "",
     createTime: Date.now() +  60 * 1000 *5.1,
     attainability: true,
     messageContent: [
@@ -287,6 +289,7 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
     userId: "user123",
     nickname: "小宝",
+    tag: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -301,6 +304,7 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
     nickname: "大宝",
+    tag: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -315,6 +319,7 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
     userId: "user123",
     nickname: "小宝",
+    tag: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -334,6 +339,7 @@ const message = ref<messageListItem[]>([
     id: "6",
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
+    tag: "",
     nickname: "大宝",
     createTime: Date.now(),
     attainability: true,
@@ -349,6 +355,7 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/9150e4e5gy1g64m9acxsbj206o06o74q.jpg",
     userId: "user456",
     nickname: "二哈",
+    tag: "孤寡",
     createTime: Date.now(),
     attainability: true,
     messageContent: [

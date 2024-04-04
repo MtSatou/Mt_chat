@@ -66,7 +66,7 @@
               </a-avatar>
               <div class="identity">
                 <div class="identification">
-                  <a-tag color="#87d068" class="tag">🍥</a-tag>
+                  <a-tag color="#87d068" class="tag" v-if="item.tag">{{ item.tag }}</a-tag>
                   <span>{{ item.nickname }}</span>
                 </div>
                 <Message :data="item.messageContent"></Message>
