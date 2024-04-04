@@ -309,7 +309,7 @@ const operateClickHandler = (item: operateItem) => {
     z-index: 10;
     min-width: 55vw;
     min-height: 70vh;
-    overflow: hidden;
+    // overflow: hidden;
     background-color: #fff;
     border-radius: 8px;
     filter: drop-shadow(5px 5px 2px #00000030);

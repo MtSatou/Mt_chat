@@ -14,7 +14,7 @@ const windowClose = () => {
 <style scoped lang="scss">
 .window-operation {
   text-align: right;
-  height: 34px;
+  height: 24px;
   line-height: 34px;
   background-color: #fff;
   margin: -6px;

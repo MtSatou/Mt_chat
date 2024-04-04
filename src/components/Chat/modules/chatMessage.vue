@@ -1,5 +1,6 @@
 <template>
   <div class="mt-chat-message-container">
+    <h4 class="message-title">老公</h4>
     <template v-if="type === 0">
       <div class="announcement-content">
         <div v-for="item in 10" :key="item" class="announcement-item">
@@ -15,10 +16,15 @@
 
     <template v-else-if="type === 1">
       <div class="message-container">
-        <a-avatar :size="32">
-          <template #icon></template>
-        </a-avatar>
-        <Message></Message>
+        <div class="message-box">
+          <div class="message-list">
+            <a-avatar :size="32">
+              <template #icon></template>
+            </a-avatar>
+            <Message></Message>
+          </div>
+        </div>
+        <MessageEdit></MessageEdit>
       </div>
     </template>
   </div>
@@ -26,6 +32,7 @@
 
 <script setup lang="ts">
 import Message from "./message.vue";
+import MessageEdit from "./messageEdit.vue";
 import { UserOutlined } from "@ant-design/icons-vue";
 import FormatTime from "@/components/formatTime/index.vue";
 defineProps({
@@ -49,6 +56,16 @@ defineProps({
     overflow: auto;
     padding: 10px;
   }
+  .message-title {
+    letter-spacing: 1px;
+    color: #6699ff;
+    font-weight: bold;
+    background-color: #fff;
+    font-size: 22px;
+    border-bottom: 1px solid #eee;
+    margin: -6px -6px 0;
+    padding: 6px;
+  }
   .announcement-content {
     padding-bottom: 10px;
     .announcement-item {
@@ -66,8 +83,12 @@ defineProps({
     }
   }
   .message-container {
-    display: flex;
-    height: fit-content;
+    .message-box {
+      .message-list {
+        display: flex;
+        height: fit-content;
+      }
+    }
   }
 }
 </style>
