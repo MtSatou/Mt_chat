@@ -273,7 +273,7 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
     nickname: "大宝",
-    createTime: Date.now(),
+    createTime: Date.now() +  60 * 1000 *5.1,
     attainability: true,
     messageContent: [
       {
@@ -345,23 +345,6 @@ const message = ref<messageListItem[]>([
     ],
   },
 ]);
-
-setInterval(() => {
-  message.value.push({
-    id: "1",
-    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
-    userId: "user123",
-    nickname: "小宝",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "text",
-        text: "早安，亲爱的，今天你醒得怎么样？",
-      },
-    ],
-  });
-}, 1000);
 
 interface operateItem {
   name: string;

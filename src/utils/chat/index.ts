@@ -1,6 +1,7 @@
 /**
  * 滚动到底部的函数
- * @param smooth 是否关闭滑动效果 - 默认false
+ * @param { HTMLElement } el 可滚动元素
+ * @param { boolean } smooth 是否关闭滑动效果 - 默认false
  */
 export function scrollTargetElement(el: HTMLElement, smooth: boolean = false) {
   queueMicrotask(() => {

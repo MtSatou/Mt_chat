@@ -21,17 +21,15 @@ defineProps({
 <style scoped lang="scss">
 .message {
   max-width: 60%;
-  min-height: 32px;
+  height: fit-content;
   background-color: #ffffff;
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
   box-shadow: 0 0 5px -2px #00000030;
   word-wrap: break-word;
   word-break: break-all;
-  .message-item {
-    & > * {
-      padding: 5px;
-    }
+  .message-item * {
+    line-height: 1.3;
   }
 }
 </style>
