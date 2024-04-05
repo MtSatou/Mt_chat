@@ -67,7 +67,7 @@
               <div class="identity">
                 <div class="identification">
                   <Tag :type="item.tagType" :title="item.tag"></Tag>
-                  <span>{{ item.nickname }}</span>
+                  <span>{{ item.title }}</span>
                 </div>
                 <Message :data="item.messageContent"></Message>
               </div>
@@ -85,11 +85,10 @@ import Tag from "@/components/tag/index.vue";
 import Message from "./message.vue";
 import MessageEdit from "./messageEdit.vue";
 import FormatTime from "@/components/formatTime/index.vue";
-import type { messageListItem } from "@/types/message";
+import type { messageListItem, chatType } from "@/types/message";
 defineProps({
-  /**0 公告, 1 私聊, 2 群聊  3 空*/
   type: {
-    type: Number as PropType<0 | 1 | 2 | 3>,
+    type: Number as PropType<chatType>,
     default: 3,
   },
   data: {
@@ -98,7 +97,7 @@ defineProps({
   },
   title: {
     type: String,
-    default: "群聊",
+    default: "[]",
   },
 });
 

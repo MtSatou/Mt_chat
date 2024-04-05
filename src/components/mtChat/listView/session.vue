@@ -2,12 +2,12 @@
   <div style="height: 100%">
     <a-list :data-source="data" item-layout="horizontal" class="list-view-box">
       <template #renderItem="{ item }">
-        <a-list-item class="list-item">
+        <a-list-item class="list-item" @click="clickSession(item)">
           <a-skeleton avatar :title="false" :loading="loading" active>
             <a-list-item-meta>
               <template #title>
                 <div class="flex flex-jsb">
-                  <a>{{ item.nickname }}</a>
+                  <a>{{ item.nickname || item.title }}</a>
                   <div class="create-time">
                     <FormatTime
                       :time="item.createTime"
@@ -26,7 +26,7 @@
               <template #description>
                 <div class="flex">
                   <div class="text-ellipsis-1 message-content">
-                    {{ getRoughInfo(item.messageContent) }}
+                    {{ getRoughInfo(item.messageList) }}
                   </div>
                   <a-badge count="5" color="#6699ff" />
                 </div>
@@ -41,20 +41,23 @@
 
 <script setup lang="ts">
 import FormatTime from "@/components/formatTime/index.vue";
-import type { messageListItem, messageContent } from "@/types/message";
+import type { messageListItem } from "@/types/message";
+import type { sessionMessageItem } from "@/types/session";
+
+const emit = defineEmits(["click"]);
 defineProps({
   loading: {
     type: Boolean,
     default: false,
   },
   data: {
-    type: Array as PropType<messageListItem[]>,
+    type: Array as PropType<sessionMessageItem[]>,
     default: () => [],
   },
 });
 
-const getRoughInfo = (item: messageContent[]) => {
-  return item.reduce((str, item) => {
+const getRoughInfo = (item: messageListItem[]) => {
+  return item[item.length - 1].messageContent.reduce((str: string, item: messageListItem) => {
     switch (item.messageType) {
       case "text":
         str += item.text;
@@ -77,6 +80,10 @@ const getRoughInfo = (item: messageContent[]) => {
     }
     return str;
   }, "");
+};
+
+const clickSession = (item: sessionMessageItem) => {
+  emit("click", item);
 };
 </script>
 

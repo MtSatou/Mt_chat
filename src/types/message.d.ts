@@ -1,6 +1,9 @@
 import type { friend } from "./friend";
 import type { tagTypes } from "@/types/tag";
 
+/**0 公告, 1 私聊, 2 群聊  3 空*/
+export declare type chatType = 0 | 1 | 2 | 3;
+
 export declare interface messageContent {
   // 消息类型
   messageType: "text" | "image" | "file" | "audio" | "video" | "at" | "revocation" | "system";

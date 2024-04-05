@@ -4,7 +4,11 @@
       <a-row class="mt-row-box">
         <a-col :span="operateActive.component[0]" class="operate-content">
           <Avatar></Avatar>
-          <OperateTabs v-model="tabsActive" :data="operateList" @change="operateChange"></OperateTabs>
+          <OperateTabs
+            v-model="tabsActive"
+            :data="operateList"
+            @change="operateChange"
+          ></OperateTabs>
           <SettingFilled
             style="color: #333333; font-size: 25px; cursor: pointer"
             @click="clickSetting"
@@ -26,6 +30,7 @@
                 opacity:
                   operateActive.id === 1 ? '0%' : operateActive.id === 2 ? '0' : '100%',
               }"
+              @click="sessionClickHandler"
             ></Session>
             <Friend
               :data="friendList"
@@ -40,7 +45,12 @@
         </a-col>
         <a-col :span="operateActive.component[2]" class="chat-message-content">
           <WindowOperation></WindowOperation>
-          <Chat :data="message" v-show="operateActive.id !== 2" :type="chatType"></Chat>
+          <Chat
+            :title="message.title || message.nickname"
+            :data="message.messageList"
+            v-show="operateActive.id !== 2"
+            :type="chatType"
+          ></Chat>
           <Zone v-if="operateActive.id === 2"></Zone>
         </a-col>
       </a-row>
@@ -59,9 +69,10 @@ import Search from "./listView/search.vue";
 import Session from "./listView/session.vue";
 import Friend from "./listView/friend.vue";
 import Zone from "./zone/index.vue";
-import type { messageListItem } from "@/types/message";
+import type { messageListItem, chatType } from "@/types/message";
 import type { friendListType } from "@/types/friend";
 import type { operateItem } from "@/types/operateTabs";
+import type { sessionMessageItem } from "@/types/session";
 import {
   MessageOutlined,
   UserOutlined,
@@ -74,168 +85,172 @@ onMounted(() => {
   // useTheme();
 });
 
-const list = ref<messageListItem[]>([
+const list = ref<sessionMessageItem[]>([
   {
     id: "1",
+    type: 2,
     avatar: "avatar_url_1",
-    userId: "user_id_1",
-    nickname: "User 1",
+    groupId: "10001",
+    title: "123456789",
     createTime: Date.now(),
-    attainability: true,
-    messageContent: [
+    messageList: [
       {
-        messageType: "text",
-        text: "v50?",
+        id: "1",
+        avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+        userId: "user123",
+        nickname: "小宝",
+        tag: "小受",
+        tagType: "leader",
+        createTime: Date.now(),
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "早安，亲爱的，今天你醒得怎么样？",
+          },
+        ],
       },
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "2",
+        avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+        userId: "user456",
+        nickname: "大宝",
+        tag: "宝",
+        tagType: "manager",
+        createTime: Date.now() + 60 * 1000 * 5.1,
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "早安呀，宝贝儿，我今天醒来第一时间就在想你呢。",
+          },
+        ],
       },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 2",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "3",
+        avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+        userId: "user123",
+        nickname: "小宝",
+        tag: "小受",
+        tagType: "member",
+        createTime: Date.now(),
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "嘻嘻，我也是。今天想好怎么宠爱我了吗？",
+          },
+        ],
       },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 3",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "4",
+        avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+        userId: "user456",
+        nickname: "大宝",
+        tag: "宝",
+        tagType: "special",
+        createTime: Date.now(),
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "当然了，今晚带你去吃你最爱的日式料理，然后一起去看星星，怎么样？",
+          },
+        ],
       },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 4",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "5",
+        avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+        userId: "user123",
+        nickname: "小宝",
+        tag: "小受",
+        createTime: Date.now(),
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "image",
+            url: "http://localhost:1000/[bb]c2d13ec457bdf0cd4f25121fdc9f7f30.gif",
+            imageWidth: 100,
+            imageHeight: 100,
+          },
+          {
+            messageType: "text",
+            text: "太好啦！期待晚上的约会~",
+          },
+        ],
       },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 5",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "6",
+        avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+        userId: "user456",
+        tag: "宝",
+        nickname: "大宝",
+        createTime: Date.now(),
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "我也是，宝贝，爱你~",
+          },
+        ],
       },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 6",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
-      },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 7",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
-      },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 7",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "7",
+        avatar: "http://localhost:1000/9150e4e5gy1g64m9acxsbj206o06o74q.jpg",
+        userId: "user456",
+        nickname: "二哈",
+        tag: "孤寡",
+        createTime: Date.now(),
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "image",
+            url: "http://localhost:1000/F2DC3938AB01805A68F58486944C4D23.gif",
+            imageWidth: 100,
+            imageHeight: 100,
+          },
+        ],
       },
     ],
   },
   {
     id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 7",
+    type: 1,
+    avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+    nickname: "CC",
     createTime: Date.now(),
-    attainability: true,
-    messageContent: [
+    messageList: [
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "2",
+        avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+        userId: "user456",
+        nickname: "大宝",
+        tag: "宝",
+        tagType: "manager",
+        createTime: Date.now() + 60 * 1000 * 5.1,
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "早~",
+          },
+        ],
       },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "avatar_url_2",
-    userId: "user_id_2",
-    nickname: "User 7",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
       {
-        messageType: "image",
-        text: "Image caption",
-        imageWidth: 800,
-        imageHeight: 600,
+        id: "2",
+        avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+        userId: "user123",
+        nickname: "大宝",
+        tag: "宝",
+        tagType: "manager",
+        createTime: Date.now() + 60 * 1000 * 5.1,
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "早呀~",
+          },
+        ],
       },
     ],
   },
@@ -273,125 +288,7 @@ const friendList = ref<friendListType[]>([
   },
 ]);
 
-const message = ref<messageListItem[]>([
-  {
-    id: "1",
-    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
-    userId: "user123",
-    nickname: "小宝",
-    tag: "小受",
-    tagType: "leader",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "text",
-        text: "早安，亲爱的，今天你醒得怎么样？",
-      },
-    ],
-  },
-  {
-    id: "2",
-    avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
-    userId: "user456",
-    nickname: "大宝",
-    tag: "宝",
-    tagType: "manager",
-    createTime: Date.now() + 60 * 1000 * 5.1,
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "text",
-        text: "早安呀，宝贝儿，我今天醒来第一时间就在想你呢。",
-      },
-    ],
-  },
-  {
-    id: "3",
-    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
-    userId: "user123",
-    nickname: "小宝",
-    tag: "小受",
-    tagType: "member",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "text",
-        text: "嘻嘻，我也是。今天想好怎么宠爱我了吗？",
-      },
-    ],
-  },
-  {
-    id: "4",
-    avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
-    userId: "user456",
-    nickname: "大宝",
-    tag: "宝",
-    tagType: "special",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "text",
-        text: "当然了，今晚带你去吃你最爱的日式料理，然后一起去看星星，怎么样？",
-      },
-    ],
-  },
-  {
-    id: "5",
-    avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
-    userId: "user123",
-    nickname: "小宝",
-    tag: "小受",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "image",
-        url: "http://localhost:1000/[bb]c2d13ec457bdf0cd4f25121fdc9f7f30.gif",
-        imageWidth: 100,
-        imageHeight: 100,
-      },
-      {
-        messageType: "text",
-        text: "太好啦！期待晚上的约会~",
-      },
-    ],
-  },
-  {
-    id: "6",
-    avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
-    userId: "user456",
-    tag: "宝",
-    nickname: "大宝",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "text",
-        text: "我也是，宝贝，爱你~",
-      },
-    ],
-  },
-  {
-    id: "7",
-    avatar: "http://localhost:1000/9150e4e5gy1g64m9acxsbj206o06o74q.jpg",
-    userId: "user456",
-    nickname: "二哈",
-    tag: "孤寡",
-    createTime: Date.now(),
-    attainability: true,
-    messageContent: [
-      {
-        messageType: "image",
-        url: "http://localhost:1000/F2DC3938AB01805A68F58486944C4D23.gif",
-        imageWidth: 100,
-        imageHeight: 100,
-      },
-    ],
-  },
-]);
+const message = ref<sessionMessageItem[]>([]);
 
 const operateList = ref<operateItem[]>([
   {
@@ -424,11 +321,11 @@ const operateList = ref<operateItem[]>([
 ]);
 
 // 当前选中的那一项的名称(双向绑定激活状态)
-const tabsActive = ref("好友")
+const tabsActive = ref("好友");
 // 当前选中的那一项所有数据
 const operateActive = ref<operateItem>(operateList.value[0]);
 
-const chatType = ref<0 | 1 | 2 | 3>(2);
+const chatType = ref<chatType>(3);
 const operateChange = (item: operateItem) => {
   operateActive.value = item;
   showSetting.value = false;
@@ -443,6 +340,12 @@ const showSetting = ref(false);
 const clickSetting = () => {
   showSetting.value = !showSetting.value;
   tabsActive.value = "";
+};
+
+// 点击会话列表某一项
+const sessionClickHandler = (item: sessionMessageItem) => {
+  chatType.value = item.type;
+  message.value = item;
 };
 </script>
 
