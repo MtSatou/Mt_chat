@@ -1,5 +1,6 @@
-
-export interface messageContent {
+import { extend } from "dayjs";
+import { friend } from "./friend";
+export declare interface messageContent {
   // 消息类型
   messageType: "text" | "image" | "file" | "audio" | "video" | "at" | "revocation" | "system";
   // 消息内容
@@ -10,11 +11,8 @@ export interface messageContent {
   length?: number;
 }
 
-export interface messageListItem {
+export declare interface messageListItem extends friend {
   id: string;
-  avatar: string;
-  userId: string;
-  nickname: string;
   // 头衔
   tag?: string;
   // 发送时间

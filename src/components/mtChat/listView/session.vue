@@ -1,8 +1,6 @@
 <template>
   <div style="height: 100%">
-    <a-input placeholder="搜索">
-      <template #prefix><SearchOutlined /></template>
-    </a-input>
+    <Search></Search>
     <a-list :data-source="data" item-layout="horizontal" class="list-view-box">
       <template #renderItem="{ item }">
         <a-list-item class="list-item">
@@ -14,7 +12,11 @@
                   <div class="create-time">
                     <FormatTime
                       :time="item.createTime"
-                      :format="Date.now() - item.createTime > 86400000 ? 'YYYY-MM-DD HH:mm' : 'HH:mm'"
+                      :format="
+                        Date.now() - item.createTime > 86400000
+                          ? 'YYYY-MM-DD HH:mm'
+                          : 'HH:mm'
+                      "
                     ></FormatTime>
                   </div>
                 </div>
@@ -39,8 +41,8 @@
 </template>
 
 <script setup lang="ts">
+import Search from "./search.vue";
 import FormatTime from "@/components/formatTime/index.vue";
-import { getElapsedMillisecondsToday } from "@/utils/time";
 import type { messageListItem, messageContent } from "@/types/message";
 defineProps({
   loading: {
@@ -48,7 +50,7 @@ defineProps({
     default: false,
   },
   data: {
-    type: Array as propType<messageListItem[]>,
+    type: Array as PropType<messageListItem[]>,
     default: () => [],
   },
 });

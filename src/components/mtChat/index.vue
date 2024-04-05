@@ -2,15 +2,26 @@
   <div class="mt-chat-container">
     <div class="mt-chat-content">
       <a-row class="mt-row-box">
-        <a-col :span="operateSpan[0]" class="operate-content">
+        <a-col :span="operateActive.component[0]" class="operate-content">
           <Avatar></Avatar>
           <OperateTabs :data="operateList" @change="operateChange"></OperateTabs>
           <SettingFilled style="color: #333333; font-size: 25px; cursor: pointer" />
         </a-col>
-        <a-col :span="operateSpan[1]" class="list-view-content">
-          <Session :data="list" :loading="listInitLoading"></Session>
+        <a-col :span="operateActive.component[1]" class="list-view-content">
+          <TransitionGroup>
+            <Session
+              :data="list"
+              :loading="listInitLoading"
+              v-show="operateActive.id === 2 || operateActive.id === 0"
+            ></Session>
+            <Friend
+              :data="friendList"
+              :loading="listInitLoading"
+              v-show="operateActive.id === 2 || operateActive.id === 1"
+            ></Friend>
+          </TransitionGroup>
         </a-col>
-        <a-col :span="operateSpan[2]" class="chat-message-content">
+        <a-col :span="operateActive.component[2]" class="chat-message-content">
           <WindowOperation></WindowOperation>
           <Chat :data="message"></Chat>
         </a-col>
@@ -25,7 +36,9 @@ import WindowOperation from "./message/windowOperation.vue";
 import Avatar from "@/components/avatar/index.vue";
 import OperateTabs from "./operateTabs.vue";
 import Session from "./listView/session.vue";
+import Friend from "./listView/friend.vue";
 import type { messageListItem } from "@/types/message";
+import type { friendListType } from "@/types/friend";
 import type { operateItem } from "@/types/operateTabs";
 import {
   MessageOutlined,
@@ -33,7 +46,6 @@ import {
   NumberOutlined,
   MessageFilled,
   SettingFilled,
-  SearchOutlined,
 } from "@ant-design/icons-vue";
 // import { useTheme } from "@/utils/theme";
 onMounted(() => {
@@ -208,6 +220,27 @@ const list = ref<messageListItem[]>([
 ]);
 const listInitLoading = ref(false);
 
+// 好有列表
+const friendList = ref<friendListType[]>([
+  {
+    id: "0",
+    title: "朋友",
+    createdTime: Date.now(),
+    updatedTime: -1,
+    children: [
+      { userId: "1001", nickname: "张三", avatar: "", motto: "", onLine: false },
+      { userId: "1002", nickname: "李四", avatar: "", motto: "", onLine: false },
+      { userId: "1003", nickname: "王五", avatar: "", motto: "", onLine: false },
+    ],
+  },
+  {
+    id: "1",
+    title: "家人",
+    createdTime: Date.now(),
+    updatedTime: -1,
+  },
+]);
+
 const message = ref<messageListItem[]>([
   {
     id: "1",
@@ -324,7 +357,6 @@ const message = ref<messageListItem[]>([
   },
 ]);
 
-const operateSpan = ref([2, 6, 16]);
 const operateList = ref<operateItem[]>([
   {
     id: 0,
@@ -354,11 +386,11 @@ const operateList = ref<operateItem[]>([
     component: [2, 0, 22],
   },
 ]);
+const operateActive = ref<operateItem>(operateList.value[0]);
+
 const operateChange = (item: operateItem) => {
-  if (item.id === 0) {
-    operateSpan;
-  }
-  operateSpan.value = item.component;
+  console.log("执行了", item);
+  operateActive.value = item;
 };
 </script>
 
