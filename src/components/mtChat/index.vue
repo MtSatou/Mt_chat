@@ -253,6 +253,9 @@ const friendList = ref<friendListType[]>([
     title: "家人",
     createdTime: Date.now(),
     updatedTime: -1,
+    children: [
+      { userId: "1004", nickname: "罗翔", avatar: "https://i2.hdslb.com/bfs/face/4e5d0a51273fe3f8fabc700b6a71bb8a38c9e21e.jpg@240w_240h_1c_1s_!web-avatar-search-videos.avif", motto: "", onLine: false },
+    ]
   },
 ]);
 

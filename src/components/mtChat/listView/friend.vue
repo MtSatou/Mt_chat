@@ -2,25 +2,25 @@
   <div style="height: 100%">
     <div class="friend-view-box">
       <a-space direction="vertical" style="width: 100%" :size="16">
-        <a-skeleton active :paragraph="false" :loading="loading">
-          <a-collapse v-model:activeKey="activeKey" ghost>
-            <a-collapse-panel v-for="group in data" :key="group.id" class="friend-group">
-              <template #header>
-                <div class="friend-group-title">
-                  <span>{{ group.title }}</span>
-                  <span>{{ group?.children?.length || 0 }}</span>
-                </div>
-              </template>
+        <a-collapse v-model:activeKey="activeKey" ghost>
+          <a-collapse-panel v-for="group in data" :key="group.id" class="friend-group">
+            <template #header>
+              <div class="friend-group-title">
+                <span>{{ group.title }}</span>
+                <span>{{ group?.children?.length || 0 }}</span>
+              </div>
+            </template>
+            <a-skeleton active :paragraph="false" :loading="loading">
               <div class="friend-item" v-for="friend in group.children">
-                <a-avatar :size="26" :url="friend.avatar"></a-avatar>
+                <a-avatar :size="26" :src="friend.avatar"></a-avatar>
                 <div class="friend-item-info">
                   <span class="nickname">{{ friend.nickname }}</span>
                   <!-- <p class="motto"></p> -->
                 </div>
               </div>
-            </a-collapse-panel>
-          </a-collapse>
-        </a-skeleton>
+            </a-skeleton>
+          </a-collapse-panel>
+        </a-collapse>
       </a-space>
     </div>
   </div>
