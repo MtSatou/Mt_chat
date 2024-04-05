@@ -18,7 +18,7 @@
   background-color: #bbb;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   margin-bottom: 0;
 }
 
@@ -28,6 +28,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .padding-0 {
   padding: 0;
+}
+
+.margin-top-5 {
+  margin-top: 5px;
 }
 
 .text-ellipsis-1 {
@@ -54,6 +58,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .flex-jsb {
   justify-content: space-between;
+}
+
+.tac {
+  text-align: center;
 }
 
 .message-image {
