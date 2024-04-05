@@ -119,8 +119,7 @@ const messageTime = 60 * 1000 * 5; // 5分钟
     background-color: #fff;
     font-size: 22px;
     border-bottom: 1px solid #eee;
-    margin: -6px 0 0;
-    padding: 6px;
+    padding: 16px 6px;
   }
   .announcement-content {
     padding-bottom: 10px;

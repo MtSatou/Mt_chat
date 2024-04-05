@@ -45,7 +45,7 @@
           </div>
         </a-col>
         <a-col :span="operateActive.component[2]" class="chat-message-content">
-          <WindowOperation></WindowOperation>
+          <!-- <WindowOperation></WindowOperation> -->
           <Chat
             :title="message.title || message.nickname"
             :data="message.messageList"
@@ -255,6 +255,47 @@ const list = ref<sessionMessageItem[]>([
       },
     ],
   },
+  {
+    id: "3",
+    type: 0,
+    avatar: "",
+    title: "系统消息",
+    createTime: Date.now(),
+    messageList: [
+      {
+        id: "2",
+        avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
+        userId: "user456",
+        nickname: "大宝",
+        tag: "宝",
+        tagType: "manager",
+        createTime: Date.now() + 60 * 1000 * 5.1,
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "早~",
+          },
+        ],
+      },
+      {
+        id: "2",
+        avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
+        userId: "user123",
+        nickname: "大宝",
+        tag: "宝",
+        tagType: "manager",
+        createTime: Date.now() + 60 * 1000 * 5.1,
+        attainability: true,
+        messageContent: [
+          {
+            messageType: "text",
+            text: "!!!怎会如此",
+          },
+        ],
+      },
+    ],
+  },
 ]);
 const listInitLoading = ref(false);
 
@@ -333,6 +374,7 @@ const operateChange = (item: operateItem) => {
   // 打开空间后关闭对话框，让用户重新选择对话
   if (operateActive.value.id === 2) {
     chatType.value = 3;
+    message.value = [];
   }
 };
 

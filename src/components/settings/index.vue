@@ -1,6 +1,6 @@
 <template>
   <Transition>
-    <div class="setting-container" v-if="visible">设置</div>
+    <div class="setting-container" v-if="visible">SETTINGS</div>
   </Transition>
 </template>
 
@@ -22,5 +22,12 @@ defineProps({
   left: 8.3333333%;
   background-color: #f5f5f5;
   z-index: 999;
+
+  text-align: center;
+  line-height: 400px;
+  font-size: 60px;
+  font-weight: bold;
+  font-style: italic;
+  color: #e5e5e5;
 }
 </style>

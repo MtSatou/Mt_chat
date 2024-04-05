@@ -121,7 +121,7 @@ const inputHandler = (e) => {};
   position: absolute;
   bottom: 0;
   width: 100%;
-  margin: -16px -16px 0;
+  margin: -16px -10px 0;
   background-color: #fff;
   .message-edit-content {
     max-height: 200px;
