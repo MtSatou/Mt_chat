@@ -15,19 +15,15 @@ const props = defineProps({
   },
 });
 
+const tagMap: Record<tagTypes, string> = {
+  leader: "#f50f50",
+  manager: "#87d068",
+  member: "#2db7f5",
+  special: "#844ee0",
+};
+
 const tagColor = computed(() => {
-  switch (props.type) {
-    case "leader":
-      return "#f50f50";
-    case "manager":
-      return "#87d068";
-    case "member":
-      return "#2db7f5";
-    case "special":
-      return "#844ee0";
-    default:
-      return "#2db7f5";
-  }
+  return tagMap[props.type] || tagMap.member;
 });
 </script>
 
