@@ -37,7 +37,7 @@
         </a-col>
         <a-col :span="operateActive.component[2]" class="chat-message-content">
           <WindowOperation></WindowOperation>
-          <Chat :data="message" v-show="operateActive.id !== 2" :type="2"></Chat>
+          <Chat :data="message" v-show="operateActive.id !== 2" :type="chatType"></Chat>
           <Zone v-if="operateActive.id === 2"></Zone>
         </a-col>
       </a-row>
@@ -339,7 +339,6 @@ const message = ref<messageListItem[]>([
     userId: "user123",
     nickname: "小宝",
     tag: "小受",
-    tagType: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -360,7 +359,6 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
     tag: "宝",
-    tagType: "",
     nickname: "大宝",
     createTime: Date.now(),
     attainability: true,
@@ -377,7 +375,6 @@ const message = ref<messageListItem[]>([
     userId: "user456",
     nickname: "二哈",
     tag: "孤寡",
-    tagType: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -421,8 +418,14 @@ const operateList = ref<operateItem[]>([
   },
 ]);
 const operateActive = ref<operateItem>(operateList.value[0]);
+
+const chatType = ref<0 | 1 | 2 | 3>(2);
 const operateChange = (item: operateItem) => {
   operateActive.value = item;
+  // 打开空间后关闭对话框，让用户重新选择对话
+  if (operateActive.value.id === 2) {
+    chatType.value = 3;
+  }
 };
 </script>
 
