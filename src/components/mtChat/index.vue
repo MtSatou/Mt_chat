@@ -92,7 +92,7 @@ const list = ref<sessionMessageItem[]>([
     type: 2,
     avatar: "avatar_url_1",
     groupId: "10001",
-    title: "123456789",
+    title: "群组",
     createTime: Date.now(),
     messageList: [
       {
@@ -218,7 +218,7 @@ const list = ref<sessionMessageItem[]>([
     id: "2",
     type: 1,
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
-    nickname: "CC",
+    nickname: "私聊",
     createTime: Date.now(),
     messageList: [
       {
@@ -382,7 +382,6 @@ const operateChange = (item: operateItem) => {
 const showSetting = ref(false);
 const clickSetting = () => {
   showSetting.value = !showSetting.value;
-  tabsActive.value = "";
 };
 
 // 点击会话列表某一项
