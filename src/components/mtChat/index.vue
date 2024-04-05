@@ -37,7 +37,8 @@
         </a-col>
         <a-col :span="operateActive.component[2]" class="chat-message-content">
           <WindowOperation></WindowOperation>
-          <Chat :data="message"></Chat>
+          <Chat :data="message" v-show="operateActive.id !== 2" :type="2"></Chat>
+          <Zone v-if="operateActive.id === 2"></Zone>
         </a-col>
       </a-row>
     </div>
@@ -45,13 +46,14 @@
 </template>
 
 <script setup lang="ts">
+import Avatar from "@/components/avatar/index.vue";
 import Chat from "./message/chat.vue";
 import WindowOperation from "./message/windowOperation.vue";
-import Avatar from "@/components/avatar/index.vue";
 import OperateTabs from "./operateTabs.vue";
 import Search from "./listView/search.vue";
 import Session from "./listView/session.vue";
 import Friend from "./listView/friend.vue";
+import Zone from "./zone/index.vue";
 import type { messageListItem } from "@/types/message";
 import type { friendListType } from "@/types/friend";
 import type { operateItem } from "@/types/operateTabs";
@@ -254,8 +256,15 @@ const friendList = ref<friendListType[]>([
     createdTime: Date.now(),
     updatedTime: -1,
     children: [
-      { userId: "1004", nickname: "罗翔", avatar: "https://i2.hdslb.com/bfs/face/4e5d0a51273fe3f8fabc700b6a71bb8a38c9e21e.jpg@240w_240h_1c_1s_!web-avatar-search-videos.avif", motto: "", onLine: false },
-    ]
+      {
+        userId: "1004",
+        nickname: "罗翔",
+        avatar:
+          "https://i2.hdslb.com/bfs/face/4e5d0a51273fe3f8fabc700b6a71bb8a38c9e21e.jpg@240w_240h_1c_1s_!web-avatar-search-videos.avif",
+        motto: "",
+        onLine: false,
+      },
+    ],
   },
 ]);
 
@@ -265,7 +274,8 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
     userId: "user123",
     nickname: "小宝",
-    tag: "",
+    tag: "小受",
+    tagType: "leader",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -280,7 +290,8 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
     nickname: "大宝",
-    tag: "",
+    tag: "宝",
+    tagType: "manager",
     createTime: Date.now() + 60 * 1000 * 5.1,
     attainability: true,
     messageContent: [
@@ -295,7 +306,8 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
     userId: "user123",
     nickname: "小宝",
-    tag: "",
+    tag: "小受",
+    tagType: "member",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -310,7 +322,8 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
     nickname: "大宝",
-    tag: "",
+    tag: "宝",
+    tagType: "special",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -325,7 +338,8 @@ const message = ref<messageListItem[]>([
     avatar: "http://localhost:1000/b_d77a31434d40a1653006d01ea38f07f6.jpg",
     userId: "user123",
     nickname: "小宝",
-    tag: "",
+    tag: "小受",
+    tagType: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [
@@ -345,7 +359,8 @@ const message = ref<messageListItem[]>([
     id: "6",
     avatar: "http://localhost:1000/b_86744ff7da2be70cbff32adc31754094.jpg",
     userId: "user456",
-    tag: "",
+    tag: "宝",
+    tagType: "",
     nickname: "大宝",
     createTime: Date.now(),
     attainability: true,
@@ -362,6 +377,7 @@ const message = ref<messageListItem[]>([
     userId: "user456",
     nickname: "二哈",
     tag: "孤寡",
+    tagType: "",
     createTime: Date.now(),
     attainability: true,
     messageContent: [

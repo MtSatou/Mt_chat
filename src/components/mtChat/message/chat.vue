@@ -1,6 +1,6 @@
 <template>
   <div class="mt-chat-message-container">
-    <h4 class="message-title">{{ title }}</h4>
+    <h4 class="message-title" v-if="type !== 3">{{ title }}</h4>
     <template v-if="type === 0">
       <div class="announcement-content" style="height: calc(100% - 25px)">
         <div v-for="item in 10" :key="item" class="announcement-item">
@@ -66,7 +66,7 @@
               </a-avatar>
               <div class="identity">
                 <div class="identification">
-                  <a-tag color="#87d068" class="tag" v-if="item.tag">{{ item.tag }}</a-tag>
+                  <Tag :type="item.tagType" :title="item.tag"></Tag>
                   <span>{{ item.nickname }}</span>
                 </div>
                 <Message :data="item.messageContent"></Message>
@@ -81,15 +81,16 @@
 </template>
 
 <script setup lang="ts">
+import Tag from "@/components/tag/index.vue";
 import Message from "./message.vue";
 import MessageEdit from "./messageEdit.vue";
 import FormatTime from "@/components/formatTime/index.vue";
 import type { messageListItem } from "@/types/message";
 defineProps({
-  /**0 公告, 1 私聊, 2 群聊 */
+  /**0 公告, 1 私聊, 2 群聊  3 空*/
   type: {
-    type: Number as PropType<0 | 1 | 2>,
-    default: 2,
+    type: Number as PropType<0 | 1 | 2 | 3>,
+    default: 3,
   },
   data: {
     type: Array as PropType<messageListItem[]>,
