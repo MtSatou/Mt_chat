@@ -26,7 +26,7 @@ const tagColor = computed(() => {
     case "special":
       return "#844ee0";
     default:
-      return "#87d068";
+      return "#2db7f5";
   }
 });
 </script>
