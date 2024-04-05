@@ -10,7 +10,8 @@
             @change="operateChange"
           ></OperateTabs>
           <SettingFilled
-            style="color: #333333; font-size: 25px; cursor: pointer"
+            class="setting-icon"
+            :class="{ active: showSetting }"
             @click="clickSetting"
           />
         </a-col>
@@ -321,7 +322,7 @@ const operateList = ref<operateItem[]>([
 ]);
 
 // 当前选中的那一项的名称(双向绑定激活状态)
-const tabsActive = ref("好友");
+const tabsActive = ref("会话");
 // 当前选中的那一项所有数据
 const operateActive = ref<operateItem>(operateList.value[0]);
 
@@ -344,6 +345,9 @@ const clickSetting = () => {
 
 // 点击会话列表某一项
 const sessionClickHandler = (item: sessionMessageItem) => {
+  if (item.id === message.value.id) {
+    return;
+  }
   chatType.value = item.type;
   message.value = item;
 };
@@ -378,6 +382,15 @@ const sessionClickHandler = (item: sessionMessageItem) => {
           rgb(250, 255, 255),
           rgb(243, 251, 255) 74%
         );
+        .setting-icon {
+          transition: none;
+          color: #333333;
+          font-size: 25px;
+          cursor: pointer;
+          &.active {
+            color: #6699ff;
+          }
+        }
       }
       .list-view-content {
         position: relative;
@@ -403,5 +416,11 @@ const sessionClickHandler = (item: sessionMessageItem) => {
       }
     }
   }
+}
+</style>
+
+<style>
+.setting-icon * {
+  transition: none;
 }
 </style>
