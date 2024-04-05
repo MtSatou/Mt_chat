@@ -17,7 +17,7 @@ const windowClose = () => {
   height: 24px;
   line-height: 34px;
   background-color: #fff;
-  margin: -6px;
+  margin: 0;
   margin-bottom: 2px;
   padding-right: 10px;
   & > * {

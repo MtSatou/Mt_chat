@@ -2,7 +2,7 @@
   <div class="mt-chat-message-container">
     <h4 class="message-title">{{ title }}</h4>
     <template v-if="type === 0">
-      <div class="announcement-content" style="height: calc(100% - 35px)">
+      <div class="announcement-content" style="height: calc(100% - 25px)">
         <div v-for="item in 10" :key="item" class="announcement-item">
           <FormatTime class="time"></FormatTime>
           <a-card class="content" :title="'消息通知：'" :bordered="false">
@@ -15,7 +15,7 @@
     </template>
 
     <template v-else-if="type === 1">
-      <div class="message-container" style="height: calc(100% - 35px - 45px)">
+      <div class="message-container" style="height: calc(100% - 35px - 35px)">
         <div class="message-box">
           <div class="message-list" v-for="(item, index) in data" :key="item.id">
             <!-- 第一条和下面每一条的时间相差5分钟就展示时间 -->
@@ -44,7 +44,7 @@
     </template>
 
     <template v-else-if="type === 2">
-      <div class="group-message-container" style="height: calc(100% - 35px - 45px)">
+      <div class="group-message-container" style="height: calc(100% - 35px - 35px)">
         <div class="message-box">
           <div class="message-list" v-for="(item, index) in data" :key="item.id">
             <!-- 第一条和下面每一条的时间相差5分钟就展示时间 -->
@@ -107,7 +107,7 @@ const messageTime = 60 * 1000 * 5; // 5分钟
 <style scoped lang="scss">
 .mt-chat-message-container {
   color: #333;
-  height: calc(100% - 24px);
+  height: calc(100% - 24px - 20px);
   & > div {
     overflow: auto;
     padding: 10px;
@@ -119,7 +119,7 @@ const messageTime = 60 * 1000 * 5; // 5分钟
     background-color: #fff;
     font-size: 22px;
     border-bottom: 1px solid #eee;
-    margin: -6px -6px 0;
+    margin: -6px 0 0;
     padding: 6px;
   }
   .announcement-content {

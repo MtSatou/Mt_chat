@@ -3,3 +3,10 @@
   opacity: 0 !important;
   visibility: hidden;
 }
+
+.ant-col-0 {
+  display: block !important;
+  flex: 0 0 0 !important;
+  max-width: 0 !important;
+  overflow: hidden;
+}

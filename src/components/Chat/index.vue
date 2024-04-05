@@ -2,68 +2,51 @@
   <div class="mt-chat-container">
     <div class="mt-chat-content">
       <a-row class="mt-row-box">
-        <a-col :span="2" class="operate-content">
+        <a-col :span="operateSpan[0]" class="operate-content">
           <Avatar></Avatar>
-          <div class="operate-list">
-            <div
-              v-for="(item, index) in operateList"
-              :key="index"
-              class="operate-list-item"
-              @click="operateClickHandler(item)"
-            >
-              <component
-                style="font-size: 25px"
-                :style="{
-                  color:
-                    currentOperate.name === item.name
-                      ? item.activeIconColor
-                      : item.iconColor,
-                }"
-                :is="currentOperate.name === item.name ? item.activeIcon : item.icon"
-              ></component>
-              <!-- <MessageFilled ></MessageFilled> -->
-            </div>
-          </div>
+          <OperateTabs :data="operateList" @change="operateChange"></OperateTabs>
           <SettingFilled style="color: #333333; font-size: 25px; cursor: pointer" />
         </a-col>
-        <a-col :span="6" class="list-view-content">
-          <a-input placeholder="搜索">
-            <template #prefix><SearchOutlined /></template>
-          </a-input>
-          <a-list
-            :loading="listInitLoading"
-            item-layout="horizontal"
-            :data-source="list"
-            class="list-view-box"
-          >
-            <template #renderItem="{ item }">
-              <a-list-item class="list-item">
-                <a-skeleton avatar :title="false" :loading="true" active>
-                  <a-list-item-meta>
-                    <template #title>
-                      <div class="flex flex-jsb">
-                        <a href="https://www.antdv.com/">{{ item.nickname }}</a>
-                        <div class="create-time">{{ item.createTime }}</div>
-                      </div>
-                    </template>
-                    <template #avatar>
-                      <a-avatar :src="item.avatar" />
-                    </template>
-                    <template #description>
-                      <div class="flex">
-                        <div class="text-ellipsis-1 message-content">
-                          {{ item.messageContent }}
+        <a-col :span="operateSpan[1]" class="list-view-content">
+          <div>
+            <a-input placeholder="搜索">
+              <template #prefix><SearchOutlined /></template>
+            </a-input>
+            <a-list
+              :loading="listInitLoading"
+              item-layout="horizontal"
+              :data-source="list"
+              class="list-view-box"
+            >
+              <template #renderItem="{ item }">
+                <a-list-item class="list-item">
+                  <a-skeleton avatar :title="false" :loading="true" active>
+                    <a-list-item-meta>
+                      <template #title>
+                        <div class="flex flex-jsb">
+                          <a href="https://www.antdv.com/">{{ item.nickname }}</a>
+                          <div class="create-time">{{ item.createTime }}</div>
                         </div>
-                        <a-badge count="5" color="#6699ff" />
-                      </div>
-                    </template>
-                  </a-list-item-meta>
-                </a-skeleton>
-              </a-list-item>
-            </template>
-          </a-list>
+                      </template>
+                      <template #avatar>
+                        <a-avatar :src="item.avatar" />
+                      </template>
+                      <template #description>
+                        <div class="flex">
+                          <div class="text-ellipsis-1 message-content">
+                            {{ item.messageContent }}
+                          </div>
+                          <a-badge count="5" color="#6699ff" />
+                        </div>
+                      </template>
+                    </a-list-item-meta>
+                  </a-skeleton>
+                </a-list-item>
+              </template>
+            </a-list>
+          </div>
         </a-col>
-        <a-col :span="16" class="chat-message-content">
+        <a-col :span="operateSpan[2]" class="chat-message-content">
           <WindowOperation></WindowOperation>
           <ChatMessage :data="message"></ChatMessage>
         </a-col>
@@ -76,7 +59,9 @@
 import ChatMessage from "./modules/chatMessage.vue";
 import WindowOperation from "./modules/windowOperation.vue";
 import Avatar from "@/components/avatar/index.vue";
+import OperateTabs from "./operateTabs.vue";
 import type { messageListItem } from "@/types/message";
+import type { operateItem } from "@/types/operateTabs";
 import {
   MessageOutlined,
   UserOutlined,
@@ -84,7 +69,6 @@ import {
   MessageFilled,
   SettingFilled,
   SearchOutlined,
-  CloseOutlined,
 } from "@ant-design/icons-vue";
 // import { useTheme } from "@/utils/theme";
 onMounted(() => {
@@ -275,7 +259,7 @@ const message = ref<messageListItem[]>([
     userId: "user456",
     nickname: "大宝",
     tag: "",
-    createTime: Date.now() +  60 * 1000 *5.1,
+    createTime: Date.now() + 60 * 1000 * 5.1,
     attainability: true,
     messageContent: [
       {
@@ -369,16 +353,10 @@ const message = ref<messageListItem[]>([
   },
 ]);
 
-interface operateItem {
-  name: string;
-  icon: any;
-  activeIcon: any;
-  iconColor: string;
-  activeIconColor: string;
-  component: number[];
-}
+const operateSpan = ref([2, 6, 16]);
 const operateList = ref<operateItem[]>([
   {
+    id: 0,
     name: "会话",
     icon: MessageOutlined,
     activeIcon: MessageFilled,
@@ -387,6 +365,7 @@ const operateList = ref<operateItem[]>([
     component: [2, 6, 16],
   },
   {
+    id: 1,
     name: "好友",
     icon: UserOutlined,
     activeIcon: UserOutlined,
@@ -395,6 +374,7 @@ const operateList = ref<operateItem[]>([
     component: [2, 6, 16],
   },
   {
+    id: 2,
     name: "MT空间",
     icon: NumberOutlined,
     activeIcon: NumberOutlined,
@@ -403,9 +383,11 @@ const operateList = ref<operateItem[]>([
     component: [2, 0, 22],
   },
 ]);
-const currentOperate = ref(operateList.value[0]);
-const operateClickHandler = (item: operateItem) => {
-  currentOperate.value = item;
+const operateChange = (item: operateItem) => {
+  if (item.id === 0) {
+    operateSpan;
+  }
+  operateSpan.value = item.component;
 };
 </script>
 
@@ -423,7 +405,7 @@ const operateClickHandler = (item: operateItem) => {
   .mt-chat-content {
     position: relative;
     z-index: 10;
-    min-width: 55vw;
+    width: 55vw;
     min-height: 70vh;
     overflow: hidden;
     background-color: #fff;
@@ -434,8 +416,8 @@ const operateClickHandler = (item: operateItem) => {
       .operate-content,
       .list-view-content,
       .chat-message-content {
-        padding: 5px;
-        border-right: 1px solid #f6f6f6;
+        // margin: 5px;
+        // border-right: 1px solid #f6f6f6;
       }
       .operate-content {
         height: 100%;
@@ -445,21 +427,13 @@ const operateClickHandler = (item: operateItem) => {
           rgb(250, 255, 255),
           rgb(243, 251, 255) 74%
         );
-        .operate-list {
-          margin-top: 20px;
-          height: calc(100% - 125px);
-
-          .operate-list-item {
-            margin-top: 5px;
-            padding: 12px;
-            cursor: pointer;
-          }
-        }
       }
       .list-view-content {
-        padding: 20px 10px;
         height: 100%;
         background-color: #fff;
+        > div {
+          padding: 20px 10px;
+        }
         .list-view-box {
           height: calc(100% - 32px - 20px);
           overflow-y: scroll;
