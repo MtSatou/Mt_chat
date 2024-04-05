@@ -3,11 +3,7 @@
     <a-input placeholder="搜索">
       <template #prefix><SearchOutlined /></template>
     </a-input>
-    <a-list
-      :data-source="data"
-      item-layout="horizontal"
-      class="list-view-box"
-    >
+    <a-list :data-source="data" item-layout="horizontal" class="list-view-box">
       <template #renderItem="{ item }">
         <a-list-item class="list-item">
           <a-skeleton avatar :title="false" :loading="loading" active>
@@ -15,7 +11,9 @@
               <template #title>
                 <div class="flex flex-jsb">
                   <a>{{ item.nickname }}</a>
-                  <div class="create-time">{{ item.createTime }}</div>
+                  <div class="create-time">
+                    <FormatTime :time="item.createTime"></FormatTime>
+                  </div>
                 </div>
               </template>
               <template #avatar>
@@ -24,7 +22,7 @@
               <template #description>
                 <div class="flex">
                   <div class="text-ellipsis-1 message-content">
-                    {{ item.messageContent }}
+                    {{ getRoughInfo(item.messageContent) }}
                   </div>
                   <a-badge count="5" color="#6699ff" />
                 </div>
@@ -38,17 +36,44 @@
 </template>
 
 <script setup lang="ts">
-import type { messageListItem } from "@/types/message";
+import FormatTime from "@/components/formatTime/index.vue";
+import type { messageListItem, messageContent } from "@/types/message";
 defineProps({
   loading: {
     type: Boolean,
     default: false,
   },
   data: {
-    type: Array as propType<messageListItem>,
+    type: Array as propType<messageListItem[]>,
     default: () => [],
   },
 });
+
+const getRoughInfo = (item: messageContent[]) => {
+  return item.reduce((str, item) => {
+    switch (item.messageType) {
+      case "text":
+        str += item.text;
+        break;
+      case "image":
+        str += "[图片]";
+        break;
+      case "file":
+        str += "[文件]";
+        break;
+      case "audio":
+        str += "[语音]";
+        break;
+      case "video":
+        str += "[视频]";
+        break;
+      case "at":
+        str += "[有人at我]";
+        break;
+    }
+    return str;
+  }, "");
+};
 </script>
 
 <style scoped lang="scss">
@@ -77,6 +102,7 @@ defineProps({
     }
     .message-content {
       padding-right: 10px;
+      flex: 1;
     }
   }
 }

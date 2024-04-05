@@ -8,11 +8,11 @@
           <SettingFilled style="color: #333333; font-size: 25px; cursor: pointer" />
         </a-col>
         <a-col :span="operateSpan[1]" class="list-view-content">
-          <Session :data="list"></Session>
+          <Session :data="list" :loading="listInitLoading"></Session>
         </a-col>
         <a-col :span="operateSpan[2]" class="chat-message-content">
           <WindowOperation></WindowOperation>
-          <ChatMessage :data="message"></ChatMessage>
+          <Chat :data="message"></Chat>
         </a-col>
       </a-row>
     </div>
@@ -20,8 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import ChatMessage from "./modules/chatMessage.vue";
-import WindowOperation from "./modules/windowOperation.vue";
+import Chat from "./message/chat.vue";
+import WindowOperation from "./message/windowOperation.vue";
 import Avatar from "@/components/avatar/index.vue";
 import OperateTabs from "./operateTabs.vue";
 import Session from "./listView/session.vue";
@@ -46,12 +46,18 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_1",
     userId: "user_id_1",
     nickname: "User 1",
-    createTime: "12:00:00",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
         messageType: "text",
-        text: "Hello, how are you?",
+        text: "v50?",
+      },
+      {
+        messageType: "image",
+        text: "Image caption",
+        imageWidth: 800,
+        imageHeight: 600,
       },
     ],
   },
@@ -60,7 +66,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 2",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -76,7 +82,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 3",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -92,7 +98,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 4",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -108,7 +114,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 5",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -124,7 +130,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 6",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -140,7 +146,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 7",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -156,7 +162,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 7",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -172,7 +178,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 7",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {
@@ -188,7 +194,7 @@ const list = ref<messageListItem[]>([
     avatar: "avatar_url_2",
     userId: "user_id_2",
     nickname: "User 7",
-    createTime: "2024-2-31",
+    createTime: Date.now(),
     attainability: true,
     messageContent: [
       {

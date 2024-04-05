@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MtChat from "./components/Chat/index.vue";
+import MtChat from "./components/mtChat/index.vue";
 </script>
 
 <template>
