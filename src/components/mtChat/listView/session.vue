@@ -12,7 +12,10 @@
                 <div class="flex flex-jsb">
                   <a>{{ item.nickname }}</a>
                   <div class="create-time">
-                    <FormatTime :time="item.createTime"></FormatTime>
+                    <FormatTime
+                      :time="item.createTime"
+                      :format="Date.now() - item.createTime > 86400000 ? 'YYYY-MM-DD HH:mm' : 'HH:mm'"
+                    ></FormatTime>
                   </div>
                 </div>
               </template>
@@ -37,6 +40,7 @@
 
 <script setup lang="ts">
 import FormatTime from "@/components/formatTime/index.vue";
+import { getElapsedMillisecondsToday } from "@/utils/time";
 import type { messageListItem, messageContent } from "@/types/message";
 defineProps({
   loading: {
