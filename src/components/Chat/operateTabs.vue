@@ -47,3 +47,9 @@ const operateClickHandler = (item: operateItem) => {
   }
 }
 </style>
+
+<style>
+.operate-list-item * {
+  transition: none;
+}
+</style>
