@@ -4,8 +4,11 @@
       <a-row class="mt-row-box">
         <a-col :span="operateActive.component[0]" class="operate-content">
           <Avatar></Avatar>
-          <OperateTabs :data="operateList" @change="operateChange"></OperateTabs>
-          <SettingFilled style="color: #333333; font-size: 25px; cursor: pointer" />
+          <OperateTabs v-model="tabsActive" :data="operateList" @change="operateChange"></OperateTabs>
+          <SettingFilled
+            style="color: #333333; font-size: 25px; cursor: pointer"
+            @click="clickSetting"
+          />
         </a-col>
         <a-col :span="operateActive.component[1]" class="list-view-content">
           <Search></Search>
@@ -41,12 +44,14 @@
           <Zone v-if="operateActive.id === 2"></Zone>
         </a-col>
       </a-row>
+      <settings :visible="showSetting"></settings>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Avatar from "@/components/avatar/index.vue";
+import settings from "@/components/settings/index.vue";
 import Chat from "./message/chat.vue";
 import WindowOperation from "./message/windowOperation.vue";
 import OperateTabs from "./operateTabs.vue";
@@ -417,15 +422,27 @@ const operateList = ref<operateItem[]>([
     component: [2, 0, 22],
   },
 ]);
+
+// 当前选中的那一项的名称(双向绑定激活状态)
+const tabsActive = ref("好友")
+// 当前选中的那一项所有数据
 const operateActive = ref<operateItem>(operateList.value[0]);
 
 const chatType = ref<0 | 1 | 2 | 3>(2);
 const operateChange = (item: operateItem) => {
   operateActive.value = item;
+  showSetting.value = false;
   // 打开空间后关闭对话框，让用户重新选择对话
   if (operateActive.value.id === 2) {
     chatType.value = 3;
   }
+};
+
+// 设置
+const showSetting = ref(false);
+const clickSetting = () => {
+  showSetting.value = !showSetting.value;
+  tabsActive.value = "";
 };
 </script>
 

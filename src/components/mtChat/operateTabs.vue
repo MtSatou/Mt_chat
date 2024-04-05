@@ -9,10 +9,9 @@
       <component
         style="font-size: 25px"
         :style="{
-          color:
-            currentOperate.name === item.name ? item.activeIconColor : item.iconColor,
+          color: model === item.name ? item.activeIconColor : item.iconColor,
         }"
-        :is="currentOperate.name === item.name ? item.activeIcon : item.icon"
+        :is="model === item.name ? item.activeIcon : item.icon"
       ></component>
     </div>
   </div>
@@ -22,15 +21,16 @@
 import type { operateItem } from "@/types/operateTabs";
 
 const emit = defineEmits(["change"]);
-const props = defineProps({
+const model = defineModel();
+defineProps({
   data: {
     type: Array as PropType<operateItem[]>,
     default: () => [],
   },
 });
-const currentOperate = ref(props.data[0]);
+
 const operateClickHandler = (item: operateItem) => {
-  currentOperate.value = item;
+  model.value = item.name;
   emit("change", item);
 };
 </script>
