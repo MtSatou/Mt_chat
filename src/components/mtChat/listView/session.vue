@@ -1,6 +1,5 @@
 <template>
   <div style="height: 100%">
-    <Search></Search>
     <a-list :data-source="data" item-layout="horizontal" class="list-view-box">
       <template #renderItem="{ item }">
         <a-list-item class="list-item">
@@ -41,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import Search from "./search.vue";
 import FormatTime from "@/components/formatTime/index.vue";
 import type { messageListItem, messageContent } from "@/types/message";
 defineProps({
@@ -84,7 +82,7 @@ const getRoughInfo = (item: messageContent[]) => {
 
 <style scoped lang="scss">
 .list-view-box {
-  height: calc(100% - 25px);
+  height: calc(100% - 40px);
   overflow-y: scroll;
   user-select: none;
   margin-top: 5px;

@@ -1,6 +1,5 @@
 <template>
   <div style="height: 100%">
-    <Search></Search>
     <div class="friend-view-box">
       <a-space direction="vertical" style="width: 100%" :size="16">
         <a-skeleton active :paragraph="false" :loading="loading">
@@ -29,7 +28,6 @@
 
 <script setup lang="ts">
 import type { friendListType } from "@/types/friend";
-import Search from "./search.vue";
 defineProps({
   loading: {
     type: Boolean,
@@ -46,7 +44,7 @@ const activeKey = ref("");
 
 <style scoped lang="scss">
 .friend-view-box {
-  height: calc(100% - 25px);
+  height: calc(100% - 40px);
   overflow-y: scroll;
   user-select: none;
   margin-top: 5px;

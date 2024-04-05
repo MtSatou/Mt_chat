@@ -8,18 +8,32 @@
           <SettingFilled style="color: #333333; font-size: 25px; cursor: pointer" />
         </a-col>
         <a-col :span="operateActive.component[1]" class="list-view-content">
-          <TransitionGroup>
+          <Search></Search>
+          <div
+            class="transition-box"
+            :style="{
+              left: operateActive.id === 0 ? '0%' : '-100%',
+            }"
+          >
             <Session
               :data="list"
               :loading="listInitLoading"
-              v-show="operateActive.id === 2 || operateActive.id === 0"
+              key="Session"
+              :style="{
+                opacity:
+                  operateActive.id === 1 ? '0%' : operateActive.id === 2 ? '0' : '100%',
+              }"
             ></Session>
             <Friend
               :data="friendList"
               :loading="listInitLoading"
-              v-show="operateActive.id === 2 || operateActive.id === 1"
+              key="Friend"
+              :style="{
+                opacity:
+                  operateActive.id === 0 ? '0%' : operateActive.id === 2 ? '0' : '100%',
+              }"
             ></Friend>
-          </TransitionGroup>
+          </div>
         </a-col>
         <a-col :span="operateActive.component[2]" class="chat-message-content">
           <WindowOperation></WindowOperation>
@@ -35,6 +49,7 @@ import Chat from "./message/chat.vue";
 import WindowOperation from "./message/windowOperation.vue";
 import Avatar from "@/components/avatar/index.vue";
 import OperateTabs from "./operateTabs.vue";
+import Search from "./listView/search.vue";
 import Session from "./listView/session.vue";
 import Friend from "./listView/friend.vue";
 import type { messageListItem } from "@/types/message";
@@ -387,9 +402,7 @@ const operateList = ref<operateItem[]>([
   },
 ]);
 const operateActive = ref<operateItem>(operateList.value[0]);
-
 const operateChange = (item: operateItem) => {
-  console.log("执行了", item);
   operateActive.value = item;
 };
 </script>
@@ -401,7 +414,6 @@ const operateChange = (item: operateItem) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  // background: $bgColor;
   background-color: #eec0c6;
   background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);
 
@@ -416,12 +428,6 @@ const operateChange = (item: operateItem) => {
     filter: drop-shadow(5px 5px 2px #00000030);
     .mt-row-box {
       height: 70vh;
-      .operate-content,
-      .list-view-content,
-      .chat-message-content {
-        // margin: 5px;
-        // border-right: 1px solid #f6f6f6;
-      }
       .operate-content {
         height: 100%;
         text-align: center;
@@ -432,10 +438,21 @@ const operateChange = (item: operateItem) => {
         );
       }
       .list-view-content {
+        position: relative;
         height: 100%;
         background-color: #fff;
-        > div {
-          padding: 20px 10px;
+        padding-top: 20px;
+        overflow: hidden;
+        .transition-box {
+          position: absolute;
+          display: flex;
+          height: 100%;
+          width: 200%;
+          > div {
+            width: 100%;
+            padding: 20px 10px;
+            padding-top: 0;
+          }
         }
       }
       .chat-message-content {
