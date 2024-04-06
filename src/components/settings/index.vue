@@ -10,40 +10,13 @@
               <div class="children-item">
                 <h3 id="language">语言</h3>
                 <div class="content">
-                  <a-row :gutter="16">
-                    <a-col :span="6">
-                      <a-card :bordered="false" class="card-active">
-                        <p class="tac">中文</p>
-                      </a-card>
-                    </a-col>
-                    <a-col :span="6">
-                      <a-card :bordered="false">
-                        <p class="tac">English</p>
-                      </a-card>
-                    </a-col>
-                  </a-row>
+                  <Language></Language>
                 </div>
               </div>
               <div class="children-item">
                 <h3 id="theme">主题</h3>
                 <div class="content">
-                  <a-row :gutter="16">
-                    <a-col :span="6">
-                      <a-card :bordered="false">
-                        <p class="tac">亮色</p>
-                      </a-card>
-                    </a-col>
-                    <a-col :span="6">
-                      <a-card :bordered="false">
-                        <p class="tac">黑夜</p>
-                      </a-card>
-                    </a-col>
-                    <a-col :span="6">
-                      <a-card :bordered="false" class="card-active">
-                        <p class="tac">跟随主题</p>
-                      </a-card>
-                    </a-col>
-                  </a-row>
+                  <Theme></Theme>
                 </div>
               </div>
             </div>
@@ -53,66 +26,20 @@
             <div class="children">
               <div class="children-item">
                 <h3 id="basic-information">基础信息</h3>
-                <div class="content flex">
-                  <a-avatar :size="80">
-                    <template #icon><UserOutlined /></template>
-                  </a-avatar>
-                  <div style="margin-left: 10px">
-                    <h3 style="margin-bottom: 10px">User_10000</h3>
-                    <p style="margin-bottom: 6px">这个人太懒了，没有设置签名 <span style="color: #3366ff">[14/30]</span></p>
-                    <p class="flex">账户创建时间：<FormatTime></FormatTime></p>
-                  </div>
+                <div class="content">
+                  <BasicInformation></BasicInformation>
                 </div>
-                <!-- <div>
-                  <a-button type="primary" style="margin-right: 10px">修改</a-button>
-                  <a-button>取消</a-button>
-                </div> -->
               </div>
               <div class="children-item">
                 <h3 id="update-password">修改密码</h3>
                 <div class="content">
-                  <a-form
-                    :model="formState"
-                    name="basic"
-                    :label-col="{ span: 8 }"
-                    :wrapper-col="{ span: 16 }"
-                    autocomplete="off"
-                  >
-                    <a-form-item
-                      name="password"
-                      :rules="[
-                        { required: true, message: '请输入密码' },
-                      ]"
-                    >
-                      <a-input-password
-                        placeholder="请输入新密码"
-                        v-model:value="formState.password"
-                      />
-                    </a-form-item>
-
-                    <a-form-item
-                      name="rePassword"
-                      :rules="[
-                        { required: true, message: '两次密码不一致' },
-                      ]"
-                    >
-                      <a-input-password
-                        placeholder="请重复输入新密码"
-                        v-model:value="formState.rePassword"
-                      />
-                    </a-form-item>
-
-                    <a-form-item>
-                      <a-button type="primary" html-type="submit">修改密码</a-button>
-                    </a-form-item>
-                  </a-form>
+                  <UpdatePassword></UpdatePassword>
                 </div>
               </div>
               <div class="children-item">
                 <h3 id="write-off">注销</h3>
                 <div class="content">
-                  <p style="margin-bottom: 10px;">注销后将清空账户所有聊天记录，无法恢复！</p>
-                  <a-button type="primary" danger>注销</a-button>
+                  <WriteOff></WriteOff>
                 </div>
               </div>
             </div>
@@ -124,7 +51,11 @@
 </template>
 
 <script setup lang="ts">
-import FormatTime from "@/components/formatTime/index.vue";
+import WriteOff from "./modules/write-off.vue";
+import BasicInformation from "./modules/basic-information.vue";
+import UpdatePassword from "./modules/update-password.vue";
+import Language from "./modules/language.vue";
+import Theme from "./modules/theme.vue";
 defineProps({
   visible: {
     type: Boolean,
@@ -173,11 +104,6 @@ const anchor = [
     ],
   },
 ];
-
-const formState = ref({
-  password: "",
-  rePassword: "",
-});
 </script>
 
 <style scoped lang="scss">
@@ -203,7 +129,7 @@ const formState = ref({
     .children {
       padding: 8px 20px;
       .children-item {
-        padding: 16px 0;
+        padding-top: 10px;
         .content {
           padding: 18px 0;
         }
@@ -220,7 +146,7 @@ const formState = ref({
   :deep(.ant-card) {
     cursor: pointer;
   }
-  .card-active {
+  :deep(.card-active) {
     color: #fff;
     background-color: #6699ff;
     position: relative;
