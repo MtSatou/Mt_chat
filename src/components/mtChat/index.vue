@@ -3,7 +3,7 @@
     <div class="mt-chat-content">
       <a-row class="mt-row-box">
         <a-col :span="operateActive.component[0]" class="operate-content">
-          <Avatar :size="50" class="my-avatar" me></Avatar>
+          <div class="my-avatar"><Avatar :size="50" me></Avatar></div>
           <OperateTabs
             v-model="tabsActive"
             :data="operateList"
@@ -425,6 +425,8 @@ const sessionClickHandler = (item: sessionMessageItem) => {
         );
         .my-avatar {
           margin-top: 15px;
+          display: flex;
+          justify-content: center;
         }
         .setting-icon {
           transition: none;
