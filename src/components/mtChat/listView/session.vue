@@ -90,7 +90,7 @@ const clickSession = (item: sessionMessageItem) => {
 <style scoped lang="scss">
 .list-view-box {
   height: calc(100% - 40px);
-  overflow-y: scroll;
+  overflow-y: auto;
   user-select: none;
   margin-top: 5px;
   :deep(.ant-list-item) {

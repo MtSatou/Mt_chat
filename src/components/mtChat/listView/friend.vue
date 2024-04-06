@@ -45,7 +45,7 @@ const activeKey = ref("");
 <style scoped lang="scss">
 .friend-view-box {
   height: calc(100% - 40px);
-  overflow-y: scroll;
+  overflow-y: auto;
   user-select: none;
   margin-top: 5px;
   .friend-group {

@@ -443,6 +443,7 @@ const sessionClickHandler = (item: sessionMessageItem) => {
         padding-top: 20px;
         overflow: hidden;
         .transition-box {
+          transition: all 0.5s ease;
           position: absolute;
           display: flex;
           height: 100%;
@@ -451,6 +452,7 @@ const sessionClickHandler = (item: sessionMessageItem) => {
             width: 100%;
             padding: 20px 10px;
             padding-top: 0;
+            transition: all 0.5s ease;
           }
         }
       }
