@@ -32,7 +32,7 @@
               class="message-content"
               :class="item.userId === 'user123' ? 'right' : 'left'"
             >
-              <Avatar :size="40" :src="item.avatar" class="message-avatar">
+              <Avatar :size="40" :src="item.avatar" class="message-avatar" :me="item.userId === 'user123'">
                 <template #icon></template>
               </Avatar>
               <Message :data="item.messageContent"></Message>
@@ -61,7 +61,7 @@
               class="message-content"
               :class="item.userId === 'user123' ? 'right' : 'left'"
             >
-              <Avatar :size="40" :src="item.avatar" class="message-avatar">
+              <Avatar :size="40" :src="item.avatar" class="message-avatar" :me="item.userId === 'user123'">
                 <template #icon></template>
               </Avatar>
               <div class="identity">

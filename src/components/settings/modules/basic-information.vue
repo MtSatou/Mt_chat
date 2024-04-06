@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <Avatar :size="80">
+    <Avatar :size="80" me>
       <template #icon><UserOutlined /></template>
     </Avatar>
     <div style="margin-left: 10px">

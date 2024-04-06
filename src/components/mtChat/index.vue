@@ -3,7 +3,7 @@
     <div class="mt-chat-content">
       <a-row class="mt-row-box">
         <a-col :span="operateActive.component[0]" class="operate-content">
-          <Avatar :size="50" class="my-avatar"></Avatar>
+          <Avatar :size="50" class="my-avatar" me></Avatar>
           <OperateTabs
             v-model="tabsActive"
             :data="operateList"
