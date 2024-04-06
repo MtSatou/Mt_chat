@@ -32,9 +32,9 @@
               class="message-content"
               :class="item.userId === 'user123' ? 'right' : 'left'"
             >
-              <a-avatar :size="40" :src="item.avatar" class="message-avatar">
+              <Avatar :size="40" :src="item.avatar" class="message-avatar">
                 <template #icon></template>
-              </a-avatar>
+              </Avatar>
               <Message :data="item.messageContent"></Message>
             </div>
           </div>
@@ -61,9 +61,9 @@
               class="message-content"
               :class="item.userId === 'user123' ? 'right' : 'left'"
             >
-              <a-avatar :size="40" :src="item.avatar" class="message-avatar">
+              <Avatar :size="40" :src="item.avatar" class="message-avatar">
                 <template #icon></template>
-              </a-avatar>
+              </Avatar>
               <div class="identity">
                 <div class="identification">
                   <Tag :type="item.tagType" :title="item.tag"></Tag>

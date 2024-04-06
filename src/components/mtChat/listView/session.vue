@@ -21,7 +21,7 @@
                 </div>
               </template>
               <template #avatar>
-                <a-avatar :src="item.avatar" :size="40"/>
+                <Avatar :src="item.avatar" :size="40"/>
               </template>
               <template #description>
                 <div class="flex">

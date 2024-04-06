@@ -1,5 +1,5 @@
 <template>
-  <a-avatar :size="50" class="mt-avatar">
+  <a-avatar :="$attrs" class="mt-avatar">
     <template #icon><UserOutlined /></template>
   </a-avatar>
 </template>
@@ -9,7 +9,4 @@ import { UserOutlined } from "@ant-design/icons-vue";
 </script>
 
 <style scoped lang="scss">
-.mt-avatar {
-  margin-top: 15px;
-}
 </style>

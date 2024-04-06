@@ -1,8 +1,8 @@
 <template>
   <div class="flex">
-    <a-avatar :size="80">
+    <Avatar :size="80">
       <template #icon><UserOutlined /></template>
-    </a-avatar>
+    </Avatar>
     <div style="margin-left: 10px">
       <h3 style="margin-bottom: 10px">User_10000</h3>
       <p style="margin-bottom: 6px">

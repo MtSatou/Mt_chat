@@ -3,7 +3,7 @@
     <div class="mt-chat-content">
       <a-row class="mt-row-box">
         <a-col :span="operateActive.component[0]" class="operate-content">
-          <Avatar></Avatar>
+          <Avatar :size="50" class="my-avatar"></Avatar>
           <OperateTabs
             v-model="tabsActive"
             :data="operateList"
@@ -423,6 +423,9 @@ const sessionClickHandler = (item: sessionMessageItem) => {
           rgb(250, 255, 255),
           rgb(243, 251, 255) 74%
         );
+        .my-avatar {
+          margin-top: 15px;
+        }
         .setting-icon {
           transition: none;
           color: #333333;

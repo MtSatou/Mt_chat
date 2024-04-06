@@ -12,7 +12,7 @@
             </template>
             <a-skeleton active :paragraph="false" :loading="loading">
               <div class="friend-item" v-for="friend in group.children">
-                <a-avatar :size="26" :src="friend.avatar"></a-avatar>
+                <Avatar :size="26" :src="friend.avatar"></Avatar>
                 <div class="friend-item-info">
                   <span class="nickname">{{ friend.nickname }}</span>
                   <!-- <p class="motto"></p> -->
