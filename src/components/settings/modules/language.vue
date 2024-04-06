@@ -1,11 +1,12 @@
 <template>
   <a-row :gutter="16">
-    <a-col :span="6" v-for="item in languageOptions" :key="item.id">
-      <a-card
-        :bordered="false"
-        class="card-active"
-        :class="{ 'card-active': currentLanguage === item.id }"
-      >
+    <a-col
+      :span="6"
+      v-for="item in languageOptions"
+      :key="item.id"
+      @click="changeLanguage(item)"
+    >
+      <a-card :bordered="false" :class="{ 'card-active': currentLanguage === item.id }">
         <p class="tac">{{ item.name }}</p>
       </a-card>
     </a-col>
@@ -13,13 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { setLocalStorage, getLocalStorage } from "@/utils/localStorage";
-interface languageItem {
-  id: number;
-  name: string;
-  value: string;
-}
+import useLanguage from "@/store/language";
+import constant from "@/constant";
+import { setLocalStorage } from "@/utils/localStorage";
+import type { languageItem } from "@/store/types/language";
 
+const languageStore = useLanguage();
+const { language } = storeToRefs(languageStore);
 const languageOptions: languageItem[] = [
   {
     id: 0,
@@ -33,13 +34,13 @@ const languageOptions: languageItem[] = [
   },
 ];
 const currentLanguage = ref();
-currentLanguage.value = getLocalStorage("language")?.id || languageOptions[0].id;
+currentLanguage.value = language.value?.id || languageOptions[0].id;
 
 const changeLanguage = (item: languageItem) => {
   currentLanguage.value = item.id;
-  setLocalStorage("language", item);
+  languageStore.setLanguage(item);
+  setLocalStorage(constant.STORE_NAME.LANGUAGE, item);
 };
-changeLanguage(languageOptions[0]);
 </script>
 
 <style scoped></style>
