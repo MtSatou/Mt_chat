@@ -14,12 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { setLocalStorage, getLocalStorage } from "@/utils/localStorage";
-interface themeItem {
-  id: number;
-  name: string;
-  value: string;
-}
+import useTheme from "@/store/theme";
+import constant from "@/constant";
+import { setLocalStorage } from "@/utils/localStorage";
+import type { themeItem } from "@/store/types/theme";
+
+const themeStore = useTheme();
+const { theme } = storeToRefs(themeStore);
 
 const themeOptions: themeItem[] = [
   {
@@ -39,13 +40,13 @@ const themeOptions: themeItem[] = [
   },
 ];
 const currentTheme = ref();
-currentTheme.value = getLocalStorage("theme")?.id || themeOptions[0].id;
+currentTheme.value = theme.value?.id || themeOptions[0].id;
 
 const changeTheme = (item: themeItem) => {
   currentTheme.value = item.id;
-  setLocalStorage("theme", item);
+  themeStore.setTheme(item);
+  setLocalStorage(constant.STORE_NAME.THEME, item);
 };
-changeTheme(themeOptions[0]);
 </script>
 
 <style scoped></style>

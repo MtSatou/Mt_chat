@@ -1,3 +1,4 @@
+import constant from "@/constant";
 /**
  * 设置LocalStorage
  * @param key 名称
@@ -27,10 +28,10 @@ export const getLocalStorage = (key: string) => {
  * @param token 
  */
 export const setToken = (token: string) => {
-    setLocalStorage("token", token)
+    setLocalStorage(constant.STORE_NAME.TOKEN, token)
 }
 
 /**读取token */
 export const getToken = () => {
-    return getLocalStorage("token")
+    return getLocalStorage(constant.STORE_NAME.TOKEN)
 }
