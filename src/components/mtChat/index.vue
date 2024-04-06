@@ -47,8 +47,8 @@
         <a-col :span="operateActive.component[2]" class="chat-message-content">
           <!-- <WindowOperation></WindowOperation> -->
           <Chat
-            :title="message.title || message.nickname"
-            :data="message.messageList"
+            :title="message?.title || message?.nickname"
+            :data="message?.messageList"
             v-show="operateActive.id !== 2"
             :type="chatType"
           ></Chat>
@@ -330,7 +330,7 @@ const friendList = ref<friendListType[]>([
   },
 ]);
 
-const message = ref<sessionMessageItem[]>([]);
+const message = ref<sessionMessageItem>();
 
 const operateList = ref<operateItem[]>([
   {
@@ -374,7 +374,7 @@ const operateChange = (item: operateItem) => {
   // 打开空间后关闭对话框，让用户重新选择对话
   if (operateActive.value.id === 2) {
     chatType.value = 3;
-    message.value = [];
+    message.value = {} as sessionMessageItem;
   }
 };
 
@@ -386,7 +386,7 @@ const clickSetting = () => {
 
 // 点击会话列表某一项
 const sessionClickHandler = (item: sessionMessageItem) => {
-  if (item.id === message.value.id) {
+  if (item.id === message.value?.id) {
     return;
   }
   chatType.value = item.type;

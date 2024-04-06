@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import FormatTime from "@/components/formatTime/index.vue";
-import type { messageListItem } from "@/types/message";
+import type { messageListItem, messageContent } from "@/types/message";
 import type { sessionMessageItem } from "@/types/session";
 
 const emit = defineEmits(["click"]);
@@ -57,7 +57,7 @@ defineProps({
 });
 
 const getRoughInfo = (item: messageListItem[]) => {
-  return item[item.length - 1].messageContent.reduce((str: string, item: messageListItem) => {
+  return item[item.length - 1].messageContent.reduce((str: string, item: messageContent) => {
     switch (item.messageType) {
       case "text":
         str += item.text;

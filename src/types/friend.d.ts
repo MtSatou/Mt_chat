@@ -1,6 +1,6 @@
 export declare interface friend {
-  userId: string;
-  nickname: string;
+  userId?: string;
+  nickname?: string;
   avatar: string;
 }
 

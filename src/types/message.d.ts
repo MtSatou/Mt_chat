@@ -1,4 +1,5 @@
 import type { friend } from "./friend";
+import type { group } from "./group";
 import type { tagTypes } from "@/types/tag";
 
 /**0 公告, 1 私聊, 2 群聊  3 空*/
@@ -15,7 +16,7 @@ export declare interface messageContent {
   length?: number;
 }
 
-export declare interface messageListItem extends friend {
+export declare interface messageListItem extends friend, group {
   id: string;
   // 头衔
   tag?: string;
