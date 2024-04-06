@@ -80,12 +80,14 @@ const confirm = () => {
 };
 
 const back = () => {
+  edit.value = false;
   oldUserData.value = JSON.parse(JSON.stringify(userStore.user));
 };
 
 const updateAvatar = (data: File) => {
   imageToBase64(data).then((res) => {
     // userStore.setAvatar(res as string);
+    edit.value = true;
     oldUserData.value.avatar = res as string;
   });
 };
