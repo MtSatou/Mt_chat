@@ -16,5 +16,9 @@ export default defineStore({
   getters: {
     getUser: store => store.user
   },
-  actions: {},
+  actions: {
+    setAvatar(data: string) {
+      this.user.avatar = data;
+    }
+  },
 });

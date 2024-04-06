@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import Antd from "ant-design-vue";
 import App from "./App.vue";
 import "ant-design-vue/dist/reset.css";
+import 'cropperjs/dist/cropper.css';
 import "@/assets/scss/index.scss";
 import "@/assets/scss/ant-mixin.scss";
 

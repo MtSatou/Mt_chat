@@ -38,13 +38,15 @@
   </div>
   <div class="confirm">
     <a-button type="primary" style="margin-right: 10px" @click="confirm">修改</a-button>
-    <a-button>取消</a-button>
+    <a-button @click="back">取消</a-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import useUser from "@/store/user";
 import FormatTime from "@/components/formatTime/index.vue";
+import { imageToBase64 } from "@/utils/canvas";
+
 const userStore = useUser();
 
 const oldUserData = ref(userStore.getUser);
@@ -70,9 +72,15 @@ const confirm = () => {
   edit.value = false;
 };
 
-const updateAvatar = (data: any) => {
-  console.log("确认修改了头像")
+const back = () => {
+  oldUserData.value = userStore.user;
 }
+
+const updateAvatar = (data: File) => {
+  imageToBase64(data).then((res) => {
+    userStore.setAvatar(res as string);
+  });
+};
 </script>
 
 <style scoped>
