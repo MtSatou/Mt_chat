@@ -5,10 +5,10 @@ export default defineStore({
   state: (): store => {
     return {
       user: {
-        userId: "",
-        nickname: "",
+        userId: "10000",
+        nickname: "User_10000",
         avatar: "https://img1.baidu.com/it/u=1333417867,4012964063&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500",
-        motto: "",
+        motto: "恶！！！！！",
         createdTime: 0,
       }
     };
