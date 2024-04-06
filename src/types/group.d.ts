@@ -8,4 +8,7 @@ export declare interface group {
   description?: string;
   /**群头像 */
   avatar: string;
+  // 头衔
+  tag?: string;
+  tagType?: tagTypes;
 }

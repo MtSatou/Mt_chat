@@ -18,9 +18,6 @@ export declare interface messageContent {
 
 export declare interface messageListItem extends friend, group {
   id: string;
-  // 头衔
-  tag?: string;
-  tagType?: tagTypes;
   // 发送时间
   createTime: number;
   // 可触达（是否可以右键选中）
