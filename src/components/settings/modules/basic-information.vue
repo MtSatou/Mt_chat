@@ -1,6 +1,12 @@
 <template>
   <div class="flex">
-    <Avatar :size="80" me update @update="updateAvatar"></Avatar>
+    <Avatar
+      :size="80"
+      :me="true"
+      :update="true"
+      :src="oldUserData.avatar"
+      @update="updateAvatar"
+    ></Avatar>
     <div
       style="
         margin-left: 10px;
@@ -49,7 +55,7 @@ import { imageToBase64 } from "@/utils/canvas";
 
 const userStore = useUser();
 
-const oldUserData = ref(userStore.getUser);
+const oldUserData = ref(JSON.parse(JSON.stringify(userStore.getUser)));
 const computedLengthColor = computed(() => {
   if (oldUserData.value.motto.length < 15) {
     return "#6699ff";
@@ -70,15 +76,17 @@ const updateInfo = () => {
 
 const confirm = () => {
   edit.value = false;
+  userStore.updateUser(oldUserData.value);
 };
 
 const back = () => {
-  oldUserData.value = userStore.user;
-}
+  oldUserData.value = JSON.parse(JSON.stringify(userStore.user));
+};
 
 const updateAvatar = (data: File) => {
   imageToBase64(data).then((res) => {
-    userStore.setAvatar(res as string);
+    // userStore.setAvatar(res as string);
+    oldUserData.value.avatar = res as string;
   });
 };
 </script>

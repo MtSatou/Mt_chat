@@ -19,6 +19,9 @@ export default defineStore({
   actions: {
     setAvatar(data: string) {
       this.user.avatar = data;
+    },
+    updateUser(data: any) {
+      Object.assign(this.user, data);
     }
   },
 });

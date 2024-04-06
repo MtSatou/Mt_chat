@@ -58,7 +58,9 @@ const props = defineProps({
 });
 
 const avatar = computed(() => {
-  if (props.me) {
+  if (props.update) {
+    return props.src;
+  } else if (props.me) {
     return userStore.getUser.avatar;
   } else if (props.src) {
     return props.src;
