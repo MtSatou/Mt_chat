@@ -42,7 +42,7 @@
       </p>
     </div>
   </div>
-  <div class="confirm">
+  <div class="confirm" v-if="edit">
     <a-button type="primary" style="margin-right: 10px" @click="confirm">修改</a-button>
     <a-button @click="back">取消</a-button>
   </div>
