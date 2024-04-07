@@ -30,7 +30,7 @@
                   <BasicInformation></BasicInformation>
                 </div>
               </div>
-              <div class="children-item">
+              <div class="children-item" style="margin-top: 15px">
                 <h3 id="update-password">修改密码</h3>
                 <div class="content">
                   <UpdatePassword></UpdatePassword>
