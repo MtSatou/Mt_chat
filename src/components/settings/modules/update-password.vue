@@ -20,9 +20,10 @@
     </a-form-item>
 
     <a-form-item v-if="formState.password || formState.rePassword">
-      <a-button type="primary" html-type="submit" @click="updatePasswordHandler"
+      <a-button type="primary" @click="updatePasswordHandler"
         >修改密码</a-button
       >
+      <a-button style="margin-left: 10px" @click="reset">取消</a-button>
     </a-form-item>
   </a-form>
 </template>
@@ -67,9 +68,13 @@ const rules = ref({
   ],
 });
 
+const reset = () => {
+  formRef.value.resetFields();
+};
+
 const updatePasswordHandler = () => {
   message.success("修改成功");
-  formRef.value.resetFields();
+  reset();
 };
 </script>
 

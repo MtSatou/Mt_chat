@@ -126,6 +126,9 @@ const anchor = [
   .setting-content {
     height: 100%;
     overflow-y: auto;
+    > .children {
+      margin-top: 20px;
+    }
     .children {
       padding: 8px 20px;
       .children-item {
