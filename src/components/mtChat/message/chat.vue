@@ -32,7 +32,7 @@
               class="message-content"
               :class="item.userId === 'user123' ? 'right' : 'left'"
             >
-              <Avatar :size="40" :src="item.avatar" class="message-avatar" :me="item.userId === 'user123'">
+              <Avatar :size="40" :src="item.avatar" :me="item.userId === 'user123'">
                 <template #icon></template>
               </Avatar>
               <Message :data="item.messageContent"></Message>
@@ -61,13 +61,13 @@
               class="message-content"
               :class="item.userId === 'user123' ? 'right' : 'left'"
             >
-              <Avatar :size="40" :src="item.avatar" class="message-avatar" :me="item.userId === 'user123'">
+              <Avatar :size="40" :src="item.avatar" :me="item.userId === 'user123'">
                 <template #icon></template>
               </Avatar>
               <div class="identity">
                 <div class="identification">
                   <Tag :type="item.tagType" :title="item.tag"></Tag>
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.nickname }}</span>
                 </div>
                 <Message :data="item.messageContent"></Message>
               </div>
@@ -154,13 +154,13 @@ const messageTime = 60 * 1000 * 5; // 5分钟
 
           &.right {
             justify-content: flex-end;
-            .message-avatar {
+            :deep(.avatar-content) {
               order: 1;
               margin-right: 0;
               margin-left: 10px;
             }
           }
-          .message-avatar {
+          :deep(.avatar-content) {
             margin-right: 10px;
           }
         }

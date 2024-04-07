@@ -13,11 +13,7 @@
     :centered="true"
     :closable="false"
   >
-    <VueCropper
-      ref="cropper"
-      :src="updateAvatar"
-      :key="updateAvatar"
-    ></VueCropper>
+    <VueCropper ref="cropper" :src="updateAvatar" :key="updateAvatar"></VueCropper>
     <template #footer>
       <div class="footer-button">
         <a-button @click="selectImage">选择新头像</a-button>
@@ -54,6 +50,9 @@ const props = defineProps({
   update: {
     type: Boolean,
     default: false,
+  },
+  class: {
+    type: String,
   },
 });
 
